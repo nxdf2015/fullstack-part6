@@ -21,6 +21,7 @@ const mapStateToProps = (state) => ({ anecdotes: filterAnecdote(state) })
 
 const mapDispatchToProps = (dispatch) => ({
   vote: (anecdote) => {
+
     dispatch(anecdoteActions.asyncVoteAction(anecdote.id))
 
     dispatch(

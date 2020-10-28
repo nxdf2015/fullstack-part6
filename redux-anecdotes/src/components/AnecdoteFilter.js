@@ -10,7 +10,6 @@ const AnecdoteFilter = (props ) => {
     event.preventDefault()
 
     const filter = event.target.value
-    console.log('------------------')
     props.createFilter(filter)
   }
 

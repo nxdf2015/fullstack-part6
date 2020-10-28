@@ -20,10 +20,10 @@ const INIT_ANECDOTE = 'INIT:ANECDOTE'
 
 const getId = () => (100000 * Math.random()).toFixed(0)
 
-const asObject = (anecdote) => {
+const asObject = (anecdote,id = null ) => {
   return {
     content: anecdote,
-    id: getId(),
+    id: id || getId(),
     votes: 0,
   }
 }
@@ -31,6 +31,7 @@ const asObject = (anecdote) => {
 
 
 // const initialState = anecdotesAtStart.map(asObject)
+
 const reducer = (state = [], action) => {
   console.log('state now: ', state)
   console.log('action', action)
@@ -42,7 +43,7 @@ const reducer = (state = [], action) => {
     return newState
   case CREATE:
     console.log('create action')
-    return [...state , asObject(action.content)]
+    return [...state , asObject(action.content,action.id )]
   case INIT_ANECDOTE:
     return action.data
   default:
@@ -57,9 +58,9 @@ const voteAction = id => ({
 })
 
 
-const createAction = content => ({
+const createAction = (args) => ({
   type :  CREATE,
-  content
+  ...args
 })
 
 
@@ -78,7 +79,7 @@ export const asyncCreationAction = (content) => async dispatch => {
 
   const anecdote = asObject(content)
   await ServiceAnecdotes.create(anecdote)
-  dispatch(createAction(content))
+  dispatch(createAction({ content,id : anecdote.id }))
 
 }
 
