@@ -1,5 +1,6 @@
+
 import { anecdoteActions } from '.'
-import { create , getAll } from '../services/anecdotes'
+import * as ServiceAnecdotes from '../services/anecdotes'
 
 
 const  VOTE = 'VOTE'
@@ -51,13 +52,13 @@ const reducer = (state = [], action) => {
 
 }
 
-export const voteAction = id => ({
+const voteAction = id => ({
   type: VOTE ,
   id
 })
 
 
-export const createAction = content => ({
+const createAction = content => ({
   type :  CREATE,
   content
 })
@@ -70,17 +71,23 @@ const initAnecdote = data => ({
 
 
 export const asyncInitAnecdote = () => async dispatch => {
-  const response = await getAll()
+  const response = await ServiceAnecdotes.getAll()
   dispatch(initAnecdote(response))
 }
 
 export const asyncCreationAction = (content) => async dispatch => {
 
   const anecdote = asObject(content)
-  const response = await create(anecdote)
-  console.log('+++++++++++++++++++',response)
+  await ServiceAnecdotes.create(anecdote)
   dispatch(createAction(content))
 
+}
+
+export const asyncVoteAction = id => async (dispatch,getState)  => {
+  let anecdote = getState().anecdotes.find(anecdote => anecdote.id === id)
+
+  await ServiceAnecdotes.updateVote({ ...anecdote, votes:anecdote.votes+1 })
+  dispatch(voteAction(id))
 }
 
 

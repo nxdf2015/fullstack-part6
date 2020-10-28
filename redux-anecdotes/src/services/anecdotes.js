@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { asyncCreationAction } from '../reducers/anecdoteReducer'
 
 const URL_BASE = 'http://localhost:3001/anecdotes'
 
@@ -12,5 +13,9 @@ const create = async (anecdote ) => {
   return response.data
 }
 
+const updateVote = async (anecdote) => {
+  const response = await axios.put(`${URL_BASE}/${anecdote.id}`,anecdote)
+  return response
+}
 
-export{ getAll, create }
+export{ getAll, create , updateVote }

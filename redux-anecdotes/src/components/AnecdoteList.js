@@ -8,8 +8,8 @@ const AnecdoteList = () => {
   const anecdotes = useSelector(useFilter)
   const dispatch = useDispatch()
 
-  const vote = (id,content) => {dispatch(anecdoteActions.voteAction(id))
-    dispatch(notificationActions.createNotification(`you voted ${content} `))
+  const vote = (anecdote) => {dispatch(anecdoteActions.asyncVoteAction(anecdote.id))
+    dispatch(notificationActions.createNotification(`you voted ${anecdote.content} `))
     setTimeout(() => dispatch(notificationActions.toogleNotification()),2000)
   }
 
@@ -20,7 +20,7 @@ const AnecdoteList = () => {
       </div>
       <div>
         has {anecdote.votes}
-        <button onClick={() => vote(anecdote.id,anecdote.content)}>vote</button>
+        <button onClick={() => vote(anecdote)}>vote</button>
       </div>
     </div>
   ))
