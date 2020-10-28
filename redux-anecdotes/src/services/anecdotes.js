@@ -7,8 +7,9 @@ const getAll = async () => {
   return response.data
 }
 
-const create = async (content) => {
-  await axios.post(URL_BASE,{ content })
+const create = async (anecdote ) => {
+  const response = await axios.post(URL_BASE,anecdote)
+  return response.data
 }
 
 

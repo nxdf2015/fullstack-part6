@@ -10,7 +10,7 @@ const AnecdoteForm = () => {
     const content = event.target.content.value
     if (content !== ''){
 
-      dispatch(anecdoteActions.createAction(content))
+      dispatch(anecdoteActions.asyncCreationAction(content))
       dispatch(notificationActions.createNotification(`create anecdote ${content}`))
       setTimeout(() =>   dispatch(notificationActions.toogleNotification()), 2000)
     }

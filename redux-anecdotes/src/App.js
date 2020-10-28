@@ -7,14 +7,13 @@ import Notification from './components/Notification'
 
 import { useDispatch } from 'react-redux'
 import { anecdoteActions } from './reducers'
-import { getAll } from './services/anecdotes'
+
 const App = () => {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    getAll().then((response) =>
-      dispatch(anecdoteActions.initAnecdote(response))
-    )
+    dispatch(anecdoteActions.asyncInitAnecdote())
+
   }, [dispatch])
 
   return (

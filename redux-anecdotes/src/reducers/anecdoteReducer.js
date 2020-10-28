@@ -1,4 +1,5 @@
-import { create } from '../services/anecdotes'
+import { anecdoteActions } from '.'
+import { create , getAll } from '../services/anecdotes'
 
 
 const  VOTE = 'VOTE'
@@ -19,13 +20,13 @@ const INIT_ANECDOTE = 'INIT:ANECDOTE'
 
 const getId = () => (100000 * Math.random()).toFixed(0)
 
-// const asObject = (anecdote) => {
-//   return {
-//     content: anecdote,
-//     id: getId(),
-//     votes: 0,
-//   }
-// }
+const asObject = (anecdote) => {
+  return {
+    content: anecdote,
+    id: getId(),
+    votes: 0,
+  }
+}
 
 
 
@@ -40,8 +41,8 @@ const reducer = (state = [], action) => {
     newState.sort((x,y) => x.votes < y.votes? 1 : -1 )
     return newState
   case CREATE:
-    create(action.content)
-    return [...state , { content: action.content  , id : getId () , votes : 0 }]
+    console.log('create action')
+    return [...state , asObject(action.content)]
   case INIT_ANECDOTE:
     return action.data
   default:
@@ -62,10 +63,27 @@ export const createAction = content => ({
 })
 
 
-export const initAnecdote = data => ({
+const initAnecdote = data => ({
   type: INIT_ANECDOTE,
   data
 })
+
+
+export const asyncInitAnecdote = () => async dispatch => {
+  const response = await getAll()
+  dispatch(initAnecdote(response))
+}
+
+export const asyncCreationAction = (content) => async dispatch => {
+
+  const anecdote = asObject(content)
+  const response = await create(anecdote)
+  console.log('+++++++++++++++++++',response)
+  dispatch(createAction(content))
+
+}
+
+
 
 
 
