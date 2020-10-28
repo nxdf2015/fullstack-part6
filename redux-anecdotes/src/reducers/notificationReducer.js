@@ -19,10 +19,10 @@ const toogleNotification = () => ({ type : TOGGLE_NOTIFICATION })
 
 const createNotification = (content) => ({ type : CREATE_NOTIFICATION , content  })
 
-export const setNotification = (message) =>   (dispatch) => {
+export const setNotification = (message  ,delay = 2000) =>   (dispatch) => {
   dispatch(createNotification(message))
   dispatch(toogleNotification())
-  setTimeout(() => dispatch(toogleNotification()),2000)
+  setTimeout(() => dispatch(toogleNotification()),delay)
 
 }
 

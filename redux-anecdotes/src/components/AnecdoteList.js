@@ -11,7 +11,7 @@ const AnecdoteList = () => {
   const vote = (anecdote) => {
     dispatch(anecdoteActions.asyncVoteAction(anecdote.id))
 
-    dispatch(notificationActions.setNotification(`you voted ${anecdote.content} `))
+    dispatch(notificationActions.setNotification(`you voted ${anecdote.content} `,1000))
 
   }
 
