@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 
 import { anecdoteActions, notificationActions } from '../reducers'
-
+import { filterAnecdote } from '../helpers/helperFilter'
 
 
 const AnecdoteList = (props) => {
@@ -17,7 +17,7 @@ const AnecdoteList = (props) => {
   ))
 }
 
-const mapStateToProps = (state) => ({ anecdotes: state.anecdotes })
+const mapStateToProps = (state) => ({ anecdotes: filterAnecdote(state) })
 
 const mapDispatchToProps = (dispatch) => ({
   vote: (anecdote) => {
