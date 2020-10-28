@@ -8,9 +8,11 @@ const AnecdoteList = () => {
   const anecdotes = useSelector(useFilter)
   const dispatch = useDispatch()
 
-  const vote = (anecdote) => {dispatch(anecdoteActions.asyncVoteAction(anecdote.id))
-    dispatch(notificationActions.createNotification(`you voted ${anecdote.content} `))
-    setTimeout(() => dispatch(notificationActions.toogleNotification()),2000)
+  const vote = (anecdote) => {
+    dispatch(anecdoteActions.asyncVoteAction(anecdote.id))
+
+    dispatch(notificationActions.setNotification(`you voted ${anecdote.content} `))
+
   }
 
   return (anecdotes.map(anecdote =>

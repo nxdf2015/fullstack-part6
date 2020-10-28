@@ -11,8 +11,8 @@ const AnecdoteForm = () => {
     if (content !== ''){
 
       dispatch(anecdoteActions.asyncCreationAction(content))
-      dispatch(notificationActions.createNotification(`create anecdote ${content}`))
-      setTimeout(() =>   dispatch(notificationActions.toogleNotification()), 2000)
+      dispatch(notificationActions.setNotification(`create anecdote ${content}`))
+
     }
 
   }
