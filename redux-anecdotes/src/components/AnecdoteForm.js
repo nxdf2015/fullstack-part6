@@ -1,13 +1,20 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
-import { createAction } from '../reducers/anecdoteReducer'
+import { anecdoteActions, notificationActions } from '../reducers'
 
 const AnecdoteForm = () => {
   const dispatch = useDispatch()
 
   const createAnecdote = event => {
     event.preventDefault()
-    dispatch(createAction())
+    const content = event.target.content.value
+    if (content !== ''){
+
+      dispatch(anecdoteActions.createAction(content))
+      dispatch(notificationActions.createNotification(`create anecdote ${content}`))
+      setTimeout(() =>   dispatch(notificationActions.toogleNotification()), 2000)
+    }
+
   }
   return (
     <>
