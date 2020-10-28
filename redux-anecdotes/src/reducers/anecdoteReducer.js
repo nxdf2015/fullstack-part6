@@ -1,3 +1,4 @@
+import { create } from '../services/anecdotes'
 
 
 const  VOTE = 'VOTE'
@@ -29,7 +30,6 @@ const getId = () => (100000 * Math.random()).toFixed(0)
 
 
 // const initialState = anecdotesAtStart.map(asObject)
-
 const reducer = (state = [], action) => {
   console.log('state now: ', state)
   console.log('action', action)
@@ -40,6 +40,7 @@ const reducer = (state = [], action) => {
     newState.sort((x,y) => x.votes < y.votes? 1 : -1 )
     return newState
   case CREATE:
+    create(action.content)
     return [...state , { content: action.content  , id : getId () , votes : 0 }]
   case INIT_ANECDOTE:
     return action.data
