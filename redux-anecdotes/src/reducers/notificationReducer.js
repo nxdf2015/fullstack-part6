@@ -18,11 +18,15 @@ const reducer = (state = { content : '' , visisible : false }, action ) => {
 const toogleNotification = () => ({ type : TOGGLE_NOTIFICATION })
 
 const createNotification = (content) => ({ type : CREATE_NOTIFICATION , content  })
+let idTimeOut = undefined
 
 export const setNotification = (message  , delay = 2) =>   (dispatch) => {
   dispatch(createNotification(message))
   dispatch(toogleNotification())
-  setTimeout(() => dispatch(toogleNotification()),delay * 1000)
+  if (idTimeOut){
+    clearTimeout(idTimeOut)
+  }
+  idTimeOut = setTimeout(() => dispatch(toogleNotification()),delay * 1000)
 
 }
 
